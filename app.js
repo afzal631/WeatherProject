@@ -2,6 +2,9 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const https = require("https");
 const app = express();
+const ejs = require("ejs");
+const _ = require("lodash");
+app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -41,16 +44,22 @@ app.post("/", function (req, res) {
       const imageurl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
 
       // for sending data as response
-      res.write(
-        "<header style='background-color:black; color:white; text-align: center;margin: auto;'><h1>Live Weather App</h1></header><div style='margin:auto; width: 364px;border: 4px solid;border-radius: 5px;margin-top: 4rem;'><div style='text-align: center;'><h1>The tempreture in " +
-          query +
-          " is " +
-          temp +
-          " degrees celcius</h1>"
-      );
-      res.write("<p>The weather is currently " + description + " </p>");
-      res.write("<img src=" + imageurl + "></div></div>");
-      res.send(); //there can be only one .send  therefore we use .write and .send as combination
+      // res.write(
+      //   "<header style='background-color:black; color:white; text-align: center;margin: auto;'><h1>Live Weather App</h1></header><div style='margin:auto; width: 364px;border: 4px solid;border-radius: 5px;margin-top: 4rem;'><div style='text-align: center;'><h1>The tempreture in " +
+      //     query +
+      //     " is " +
+      //     temp +
+      //     " degrees celcius</h1>"
+      // );
+      // res.write("<p>The weather is currently " + description + " </p>");
+      // res.write("<img src=" + imageurl + "></div></div>");
+      res.render("result", {
+        query: query,
+        tempreture: temp,
+        desc: description,
+        icon: icon,
+        image: imageurl,
+      }); //there can be only one .send  therefore we use .write and .send as combination
     });
   });
 });
