@@ -13,7 +13,7 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", function (req, res) {
-  console.log(req.body.cityName);
+  // console.log(req.body.cityName);
   const query = req.body.cityName;
   const apikey = "19c5e22d94c8a2d410f927b827800d57&units";
   const unit = "metric";
@@ -27,7 +27,7 @@ app.post("/", function (req, res) {
     "";
 
   https.get(url, function (response) {
-    console.log(response.statusCode);
+    // console.log(response.statusCode);
 
     response.on("data", function (data) {
       // console.log(JSON.parse(data));
